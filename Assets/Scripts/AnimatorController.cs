@@ -6,10 +6,14 @@ public class AnimatorController : MonoBehaviour
 {
     private Animator animator;
     private CharacterMovement characterMovement;
+
+    private Rigidbody rb;
+    private int jumpCount = 0;
     public void Start()
     {
         animator = GetComponent<Animator>();
         characterMovement = GetComponent<CharacterMovement>();
+        rb = GetComponent<Rigidbody>();
     }
     public void LateUpdate()
     {
@@ -19,6 +23,19 @@ public class AnimatorController : MonoBehaviour
     // TODO Fill this in with your animator calls
     void UpdateAnimator()
     {
-        
+        animator.SetFloat("Speed", rb.velocity.magnitude);
+        animator.SetBool("IsGrounded",characterMovement.IsGrounded);
+
+        //DO JUMP HERE
+      if(Input.GetButtonUp("Jump")){
+        jumpCount++;
+        Debug.Log(jumpCount);
+        if(jumpCount==2){
+
+            animator.SetTrigger("doFlip");
+            jumpCount = 0;
+            animator.SetBool("IsGrounded",characterMovement.IsGrounded);
+        }
+      }
     }
 }
