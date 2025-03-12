@@ -30,11 +30,14 @@ public class AnimatorController : MonoBehaviour
       if(Input.GetButtonUp("Jump")){
         jumpCount++;
         Debug.Log(jumpCount);
-        if(jumpCount==2){
+        if(jumpCount==2 && characterMovement.isJumpPowerUpActive){
 
             animator.SetTrigger("doFlip");
-            jumpCount = 0;
-            animator.SetBool("IsGrounded",characterMovement.IsGrounded);
+
+            if(characterMovement.IsGrounded){
+              jumpCount = 0;
+            }
+        
         }
       }
     }

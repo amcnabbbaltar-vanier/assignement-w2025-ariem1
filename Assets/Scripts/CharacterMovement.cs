@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cinemachine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))] // Ensures that a Rigidbody component is attached to the GameObject
 public class CharacterMovement : MonoBehaviour
@@ -44,6 +45,8 @@ public class CharacterMovement : MonoBehaviour
     /// Checks if the player is currently holding the "Run" button.
     /// </summary>
     private bool IsRunning => Input.GetButton("Run");
+
+    public bool isJumpPowerUpActive = false;
 
     // ============================== Unity Built-in Methods ==============================
 
@@ -206,5 +209,34 @@ public class CharacterMovement : MonoBehaviour
 
         // Apply the new velocity directly
         rb.velocity = newVelocity;
+    }
+
+    public IEnumerator ActivateSpeedBoost(float duration)
+    {
+
+        float defaultWalkSpeed = baseWalkSpeed;
+        float defaultRunSpeed = baseRunSpeed;
+
+        baseWalkSpeed += baseWalkSpeed;
+        baseRunSpeed += baseRunSpeed;
+
+        yield return new WaitForSeconds(duration);
+
+        //Reset back to default speed
+        baseWalkSpeed = defaultWalkSpeed;
+        baseRunSpeed = defaultRunSpeed;
+
+    }
+
+    public IEnumerator ActivateDoubleJump(float duration)
+    {
+
+        isJumpPowerUpActive = true;
+
+        yield return new WaitForSeconds(duration);
+
+        //Reset back to default speed
+       isJumpPowerUpActive = false;
+
     }
 }

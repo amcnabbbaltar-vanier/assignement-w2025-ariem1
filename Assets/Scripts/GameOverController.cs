@@ -1,30 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
-using UnityEditor.Build.Content;
+using TMPro;  // Make sure to include the TextMeshPro namespace
 
 public class GameOverController : MonoBehaviour
 {
-
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timerText;
+
     public GameObject gameOverPanel;
-    // Start is called before the first frame update
-    void Start()
+
+    public void Start()
     {
         gameOverPanel.SetActive(true);
-        // if(GameManager.Instance){
-        //     scoreText.text= "Score: " + GameManager.Instance.score.ToString();
-        // }
-        
-    }
+        if (GameManager.instance)
+        {
+            scoreText.text = "Score: " + GameManager.instance.score.ToString();
 
-    public void RestartGame(){
+            timerText.text = "Final Time: " + GameManager.instance.timeElapsed.ToString("F2");
+        }
+       
+    }
+    public void RestartGame()
+    {
         SceneManager.LoadScene(0);
-
     }
-
-
-
 }
