@@ -11,11 +11,11 @@ public class Portal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
 
-            GameObject[] pickups = GameObject.FindGameObjectsWithTag("Collectible");
-            if (pickups.Length == 0)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
-            }
+           if(GameManager.instance.MinimumCubesCollected()){
+            Debug.Log("Cubes colected " + GameManager.instance.cubesCollected);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
+           }
+
 
 
         }

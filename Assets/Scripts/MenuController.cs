@@ -9,7 +9,17 @@ public class MenuController : MonoBehaviour
     public void StartGame()
     {
         //Load the scene and build index + 1
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        //GameManager.instance.RestartLevel();
+        //Time.timeScale = 0f; // Ensure game time is resumed
+        if(GameManager.instance !=null){
+        GameManager.instance.ResetTimer();
+        GameManager.instance.ResetGame();
+
+
+        }
+       // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        SceneManager.LoadScene(1);
+
     }
 
     //Exit game

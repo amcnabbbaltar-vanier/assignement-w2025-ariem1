@@ -13,17 +13,36 @@ public class SpeedPowerUp : MonoBehaviour
     public float hoverHeight = 0.5f;
     private Vector3 startPosition;
 
+    public float effectDuration = 1.5f;
+
+    public GameObject particleEffectPrefab;
+
+
+
     private void OnTriggerEnter(Collider other)
     {
-                Debug.Log("triggering.....");
+        Debug.Log("triggering.....");
 
-        if(other.CompareTag("Player")){
+        if (other.CompareTag("Player"))
+        {
 
-        Debug.Log("triggered");
+            Debug.Log("triggered");
 
             CharacterMovement player = other.gameObject.GetComponent<CharacterMovement>();
 
-            if(player != null){
+            if (player != null)
+            {
+
+                if (particleEffectPrefab != null)
+                {
+
+                    GameObject effect = Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
+
+                    Destroy(effect, effectDuration); //Destroy the effect after `effectDuration` seconds
+
+                }
+
+
                 StartCoroutine(player.ActivateSpeedBoost(powerUpDuration));
             }
 
@@ -43,7 +62,7 @@ public class SpeedPowerUp : MonoBehaviour
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
 
         // Hover up and down using a sine wave
-        float newY = startPosition.y + Mathf.Sin(Time.time * hoverSpeed) * (hoverHeight/2);
+        float newY = startPosition.y + Mathf.Sin(Time.time * hoverSpeed) * (hoverHeight / 2);
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 

@@ -7,6 +7,9 @@ public class GameOverController : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timerText;
 
+    public TextMeshProUGUI endSceneText;
+
+
     public GameObject gameOverPanel;
 
     public void Start()
@@ -14,14 +17,31 @@ public class GameOverController : MonoBehaviour
         gameOverPanel.SetActive(true);
         if (GameManager.instance)
         {
+
+            if (GameManager.instance.youLose)
+            {
+                endSceneText.text = "You Lose";
+            }
             scoreText.text = "Score: " + GameManager.instance.score.ToString();
 
             timerText.text = "Final Time: " + GameManager.instance.timeElapsed.ToString("F2");
         }
-       
+
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene(0);
+        if (GameManager.instance)
+        {
+            GameManager.instance.playerHealth = 3;
+            GameManager.instance.score = 0;
+            GameManager.instance.cubesCollected = 0;
+            GameManager.instance.timeElapsed = 0f;
+
+
+
+            SceneManager.LoadScene(0);
+
+
+        }
     }
 }
