@@ -22,6 +22,10 @@ public class GameOverController : MonoBehaviour
             {
                 endSceneText.text = "You Lose";
             }
+             else
+            {
+                endSceneText.text = "You Win!";
+            }
             scoreText.text = "Score: " + GameManager.instance.score.ToString();
 
             timerText.text = "Final Time: " + GameManager.instance.timeElapsed.ToString("F2");
